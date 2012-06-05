@@ -39,11 +39,11 @@ Install express.
 
 Create express project.
 
-	express TypeThis
+	express type-this
 	
 Then install necessary modules.
 
-	cd TypeThis && npm install
+	cd type-this && npm install
 	
 Rename app.js to server.js for "npm start".
 
