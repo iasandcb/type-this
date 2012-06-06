@@ -57,6 +57,8 @@ Install connect-redis to use Redis server for session storage.
 
 ### Rooms Page
 
+index.jade
+
 #### Create a room
 
 Become a host.
@@ -68,6 +70,8 @@ Become a host.
 Become a guest
 
 ### Room page
+
+game.jade
 
 #### Enlist players
 
