@@ -50,10 +50,6 @@ Then install necessary modules.
 	
 Rename app.js to server.js for "npm start".
 
-	npm start
-	
-Make sure http://localhost:3000 is on.
-
 Install connect-redis to use Redis server for session storage.
 
 	npm install connect-redis --save
