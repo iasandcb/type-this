@@ -55,6 +55,14 @@ Install connect-redis to use Redis server for session storage.
 
 	npm install connect-redis --save
 
+Install redis to use Redis server for database.
+
+	npm install redis --save
+	
+Install socket.io for realtime web connection.
+
+	npm install socket.io --save
+
 ### Rooms Page
 
 index.jade
