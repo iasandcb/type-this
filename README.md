@@ -22,7 +22,10 @@ Run Redis server.
 
 ### Step 3: Execute  
 
-
+Run node server
+	
+	npm start
+	
 open [http://localhost:3000](http://localhost:3000) with your browser.
 
 Create or join a room.
