@@ -31,7 +31,7 @@ Create or join a room.
 
 Please do installation and boot-up of "How to run" section prior to the followings.
 
-### Step 1: Bootstrap
+### Bootstrap
 
 Install express.
 	
@@ -54,4 +54,35 @@ Make sure http://localhost:3000 is on.
 Install connect-redis to use Redis server for session storage.
 
 	npm install connect-redis --save
-	
+
+### Rooms Page
+
+#### Create a room
+
+Become a host.
+
+#### Enlist rooms
+
+##### Join a room
+
+Become a guest
+
+### Room page
+
+#### Enlist players
+
+Host must start a game, then the room is closed.
+
+#### Type
+
+Host starts typing a word, which is supposed to be broadcast.
+
+Guests type the word, which is also broadcast.
+
+#### Result
+
+Once every player finish typing, judgement is made.
+
+Now the winner has the right to manage the game, which means he or she can finish the game.
+
+The winner starts typing a word, and so on.
