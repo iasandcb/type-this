@@ -61,6 +61,10 @@ Install redis to use Redis server for database.
 Install socket.io for realtime web connection.
 
 	npm install socket.io --save
+	
+Add jquery.js to public/javascripts.
+
+
 
 ### Rooms Page
 
