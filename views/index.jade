@@ -1,1 +1,11 @@
 h1= title
+p Create a room
+  form(action='/create', method='POST')
+    label(for='name') Room name
+    input(type='text', id='name', name='name')
+    input(type='submit', value='Submit')
+
+  ul
+    each room in rooms
+      li= room
+        input(type='button', value='Join', onclick='location.href=\'/join/' + room + '\'');
