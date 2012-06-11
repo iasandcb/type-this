@@ -14,7 +14,7 @@ module.exports = function(app) {
     ]);
   });
 
-  var Room = io
+  var Session = io
     .of('/room')
     .on('connection', function(socket) {
       var joinedRoom = null;
@@ -51,3 +51,4 @@ module.exports = function(app) {
       });
     });
 }
+

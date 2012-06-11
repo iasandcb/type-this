@@ -10,6 +10,8 @@ var RedisStore = require('connect-redis')(express);
 
 var app = module.exports = express.createServer();
 
+require ('coffee-script');
+
 // Configuration
 
 app.configure(function(){

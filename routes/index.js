@@ -4,11 +4,11 @@
  */
 
 
-var Room = require('../models/room');
+var Lobby = require('../models/lobby');
 
 exports.index = function(req, res){
   res.render('index', {
-      title: 'Type This - Rooms '
-      , rooms: Room.getAll()
+      title: 'Type This - Lobby '
+      , rooms: Lobby.getAllRooms()
   })
 };
