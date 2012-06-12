@@ -3,8 +3,7 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes');
+var express = require('express');
 
 var RedisStore = require('connect-redis')(express);
 
@@ -38,7 +37,7 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', routes.index);
+require('./routes/index')(app);
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

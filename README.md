@@ -66,7 +66,7 @@ Add jquery.js to public/javascripts.
 
 ### Models
 
-Use CoffeeScript for modeling.
+Use CoffeeScript for logic.
 
 	npm install coffee-script --save
 
