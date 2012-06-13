@@ -9,5 +9,13 @@
     "connect-redis": "~1.3.0",
     "socket.io": "~0.9.6",
     "coffee-script": "~1.3.3"
+  },
+  "devDependencies": {
+    "node-dev": "~0.2.3",
+    "mocha": "~1.1.0"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/_helper.js test/models/*.coffee",
+    "start": "./node_modules/node-dev/node-dev server.js"
   }
 }

@@ -29,4 +29,12 @@ class Room
     redis.hset Room.key(), @id, JSON.stringify(@), (err, responseCode) =>
       callback null, @
 
+  @getById: (id, callback) ->
+    redis.hget Room.key(), id, (err, json) ->
+      if json is null
+        callback new Error("Room '#{id}' could not be found.")
+        return
+      room = new Room JSON.parse(json)
+      callback null, room
+
 module.exports = Room

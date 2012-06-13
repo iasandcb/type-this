@@ -5,7 +5,7 @@ index = (app) ->
   app.get '/', (req, res) ->
     Room.all (err, rooms) ->
       res.render 'index',
-        title: 'Login'
+        title: 'Rooms'
         rooms: rooms
 
   app.post '/', (req, res) ->
@@ -14,5 +14,11 @@ index = (app) ->
     room = new Room attributes
     room.save () ->
       res.redirect '/'
+
+  app.get '/join/:id', (req, res) ->
+    Room.getById req.params.id, (err, room) ->
+      res.render 'game',
+        title: 'Room'
+        room: room
 
 module.exports = index
