@@ -15,7 +15,7 @@ index = (app) ->
     room.save () ->
       res.redirect '/'
 
-  app.get '/join/:id', (req, res) ->
+  app.get '/game/:id', (req, res) ->
     Room.getById req.params.id, (err, room) ->
       res.render 'game',
         title: 'Room'
