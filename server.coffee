@@ -13,8 +13,7 @@ app.configure ->
   app.use express.cookieParser()
   app.use express.session
     secret: "bdfajfkasjdfkjalkfjsakljdfkasj"
-    store: MemStore
-      reapInterval: 60000 * 10
+    store: new RedisStore
 
   app.use app.router
   app.use express.static(__dirname + "/public")

@@ -33,5 +33,6 @@ index = (app) ->
   app.post '/auth', (req, res) ->
     req.session.username = req.body.username
     console.log req.session.username
+    res.send 'ok'
 
 module.exports = index
