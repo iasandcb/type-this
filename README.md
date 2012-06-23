@@ -64,37 +64,43 @@ Install socket.io for realtime web connection.
 	
 Add jquery.js to public/javascripts.
 
-### Models
-
 Use CoffeeScript for logic.
 
 	npm install coffee-script --save
 
-#### Lobby
+### Models
 
-The lobby has rooms.
-
-#### Room
+#### room
 
 A room has a name and players.
 
-#### Player
+#### player
 
 A player has a name.
 
-#### Session
+### Routes
+
+#### home
+
+#### games
 
 A session does socket.io event handling.
 
-### Lobby Page
+### Views
 
-index.jade
+Use CoffeeKup for view templates
 
-#### Create a room
+	npm install coffeekup --save
+
+#### Index Page
+
+v_index.coffee
+
+#### Rooms Page
+
+v_room.coffee
 
 Become a host.
-
-#### Enlist rooms
 
 ##### Join a room
 
