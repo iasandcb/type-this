@@ -18,10 +18,12 @@ index = (app) ->
 
   app.get '/game/:id', (req, res) ->
     Room.getById req.params.id, (err, room) ->
-      room.attendants.push req.session.username
-      res.render 'game',
-        title: 'Room'
-        room: room
+      room.attendants = [] unless room.attendants
+      room.attendants.push req.session.username unless req.session.username in room.attendants
+      room.save () ->
+        res.render 'game',
+          title: 'Room'
+          room: room
 
   app.get '/auth', (req, res) ->
     res.render 'auth',
