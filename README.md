@@ -25,10 +25,8 @@ Run Redis server.
 Run node server
 	
 	npm start
-	
+		
 open [http://localhost:3000](http://localhost:3000) with your browser.
-
-Create or join a room.
 
 ## How to develop
 
@@ -36,9 +34,9 @@ Please do installation and boot-up of "How to run" section prior to the followin
 
 ### Bootstrap
 
-Install express.
+Install express and CoffeeScript globally.
 	
-	npm install express -g
+	npm install express coffee-script -g
 
 Create express project.
 

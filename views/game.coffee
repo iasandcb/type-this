@@ -11,23 +11,46 @@ coffeescript ->
         roomId: roomId
         userName: userName
 
-    game.on 'joined', (data) ->
-      if data.isOK
-        alert(data.userName + ' joined')
+#    game.on 'joined', (data) ->
+#      if data.isOK
 
     game.on 'message', (data) ->
-      $('#hostMessage').text(data.msg)
+      attendants = $('#attendants')[0]
+      for attendant in attendants.childNodes
+        attendantName = attendant.textContent
+        if attendantName is data.userName
+          attendant.textContent = "#{attendantName} typed #{data.msg} in #{data.lapse} milliseconds"
 
     game.on 'leaved', (data) ->
       alert(data.userName + ' leaved')
+
+    started = false
+    startedTime = null
+
+    $('#message').keypress ->
+      if started
+        return
+      else
+        started = true
+        startedTime = new Date()
 
     $('form').submit (e) ->
       e.preventDefault()
       msg = messageBox.val()
       if $.trim(msg) isnt ''
+        lapse = new Date().getTime() - startedTime.getTime()
         game.json.send
           userName: userName
           msg: msg
+          lapse: lapse
+
+        attendants = $('#attendants')[0]
+        for attendant in attendants.childNodes
+          attendantName = attendant.textContent
+          if attendantName is userName
+            attendant.textContent = "#{userName} typed #{msg} in #{lapse} milliseconds"
+
+        started = false
 
         messageBox.val ''
 
@@ -41,20 +64,20 @@ h1 @title
 
 p id: 'facebook-name'
 
-p 'Room name', ->
+p ->
   span '#roomId', -> @room.id
 
-p 'User', ->
+p ->
   span '#userName', -> @userName
 
 p 'Attendants'
 
-ul ->
+ul '#attendants', ->
   li attendant for attendant in @room.attendants
 
 form ->
   input '#message', type: 'text'
-  input type: 'submit'
 
 p 'Message', ->
   span id: 'hostMessage'
+  span id: 'lapse'

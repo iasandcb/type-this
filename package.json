@@ -17,6 +17,6 @@
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/_helper.js test/models/*.coffee",
-    "start": "./node_modules/node-dev/node-dev server.js"
+    "start": "./node_modules/coffee-script/bin/coffee server.coffee"
   }
 }
