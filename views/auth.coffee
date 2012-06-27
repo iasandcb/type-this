@@ -11,6 +11,7 @@ coffeescript ->
       if response.authResponse
         FB.api "/me", (me) ->
           if me.name
+            alert(me.id);
             document.getElementById("auth-displayname").innerHTML = me.name
             $.ajax '/auth',
               type: 'POST'

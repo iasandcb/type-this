@@ -24,6 +24,7 @@ index = (app) ->
         res.render 'game',
           title: 'Room'
           room: room
+          userName: req.session.username
 
   app.get '/auth', (req, res) ->
     res.render 'auth',

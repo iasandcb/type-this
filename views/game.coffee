@@ -1,25 +1,60 @@
 
 coffeescript ->
-  window.fbAsyncInit = ->
-    FB.init
-      appId: "350109445062579"
-      channelUrl: "//" + window.location.host + "/channel.txt"
-      status: true
-      cookie: true
-      xfbml: true
+  $(document).ready ->
+    game = io.connect('/game')
+    userName = $('#userName').text()
+    roomId = $('#roomId').text()
+    messageBox = $('#message')
 
-    FB.Event.subscribe "auth.statusChange", (response) ->
-      if response.authResponse
-        FB.api "/me", (me) ->
-          document.getElementById("facebook-name").innerHTML = me.name  if me.name
+    game.on 'connect', ->
+      game.emit 'join',
+        roomId: roomId
+        userName: userName
+
+    game.on 'joined', (data) ->
+      if data.isOK
+        alert(data.userName + ' joined')
+
+    game.on 'message', (data) ->
+      $('#hostMessage').text(data.msg)
+
+    game.on 'leaved', (data) ->
+      alert(data.userName + ' leaved')
+
+    $('form').submit (e) ->
+      e.preventDefault()
+      msg = messageBox.val()
+      if $.trim(msg) isnt ''
+        game.json.send
+          userName: userName
+          msg: msg
+
+        messageBox.val ''
+
+    $('#leave').click (e) ->
+      game.emit 'leave',
+        userName: userName
+
+      location.href = '/'
 
 h1 @title
 
 p id: 'facebook-name'
 
-p "Room name: #{@room.name}"
+p 'Room name', ->
+  span '#roomId', -> @room.id
+
+p 'User', ->
+  span '#userName', -> @userName
 
 p 'Attendants'
 
 ul ->
   li attendant for attendant in @room.attendants
+
+form ->
+  input '#message', type: 'text'
+  input type: 'submit'
+
+p 'Message', ->
+  span id: 'hostMessage'

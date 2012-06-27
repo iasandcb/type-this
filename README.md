@@ -73,6 +73,8 @@ Use CoffeeScript for logic.
 #### room
 
 A room has a name and players.
+Host
+Guest
 
 #### player
 
@@ -80,9 +82,9 @@ A player has a name.
 
 ### Routes
 
-#### home
+#### Index
 
-#### games
+#### Game
 
 A session does socket.io event handling.
 
@@ -92,35 +94,29 @@ Use CoffeeKup for view templates
 
 	npm install coffeekup --save
 
-#### Index Page
+#### Index
 
-v_index.coffee
+##### Create a room
 
-#### Rooms Page
-
-v_room.coffee
-
-Become a host.
+Become a host
 
 ##### Join a room
 
 Become a guest
 
-### Room page
+#### Room
 
-game.jade
-
-#### Enlist players
+##### Enlist players
 
 Host must start a game, then the room is closed.
 
-#### Type
+##### Type
 
 Host starts typing a word, which is supposed to be broadcast.
 
 Guests type the word, which is also broadcast.
 
-#### Result
+##### Result
 
 Once every player finish typing, judgement is made.
 

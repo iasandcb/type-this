@@ -28,6 +28,6 @@ app.configure "production", ->
   app.use express.errorHandler()
 
 require("./routes/index") app
-# require("./routes/game") app
+require("./routes/game") app
 app.listen 3000, ->
   console.log "Express server listening on port %d in %s mode", app.address().port, app.settings.env

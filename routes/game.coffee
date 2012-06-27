@@ -6,32 +6,31 @@ game = (app) ->
   io.of('/game').on 'connection', (socket) ->
     joinedRoom = null
     socket.on 'join', (data) ->
-      if Room.hasRoom(data.roomName)
-        joinedRoom = data.roomName
-        socket.join joinedRoom
-        socket.emit 'joined',
-          isSuccess:true
-          nickName:data.nickName
+      Room.getById data.roomId, (err, room) ->
+        if err
+          socket.emit 'joined',
+            isOK: false
+        else
+          joinedRoom = room
+          socket.join joinedRoom.id
+          socket.emit 'joined',
+            isOK: true
+            userName: data.userName
 
-        socket.broadcast.to(joinedRoom).emit 'joined',
-            isSuccess:true
-            nickName:data.nickName
-
-        Room.joinRoom joinedRoom, data.nickName
-      else
-        socket.emit 'joined',
-          isSuccess:false
+          socket.broadcast.to(joinedRoom.id).emit 'joined',
+            isOK: true
+            userName:data.userName
 
     socket.on 'message', (data) ->
       if joinedRoom
-        socket.broadcast.to(joinedRoom).json.send data
+        socket.broadcast.to(joinedRoom.id).json.send data
 
     socket.on 'leave', (data) ->
       if joinedRoom
-        Room.leaveRoom(joinedRoom, data.nickName)
-        socket.broadcast.to(joinedRoom).emit 'leaved',
-            nickName:data.nickName
+#        Room.leaveRoom(joinedRoom, data.nickName)
+        socket.broadcast.to(joinedRoom.id).emit 'leaved',
+            userName:data.userName
 
-        socket.leave joinedRoom
+        socket.leave joinedRoom.id
 
 module.exports = game
