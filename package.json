@@ -13,10 +13,10 @@
   },
   "devDependencies": {
     "node-dev": "~0.2.3",
-    "mocha": "~1.1.0"
+    "mocha": "~1.2.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/_helper.js test/models/*.coffee",
-    "start": "./node_modules/coffee-script/bin/coffee server.coffee"
+    "test": "mocha test/_helper.js test/models/*.coffee",
+    "start": "coffee server.coffee"
   }
 }
