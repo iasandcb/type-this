@@ -11,7 +11,6 @@ index = (app) ->
   app.post '/', (req, res) ->
     attributes =
       name: req.body.name
-      attendants: [req.body.host]
     room = new Room attributes
     room.save () ->
       res.redirect "/game/#{room.id}"
@@ -20,6 +19,7 @@ index = (app) ->
     Room.getById req.params.id, (err, room) ->
       room.attendants = [] unless room.attendants
       room.attendants.push req.session.username unless req.session.username in room.attendants
+      req.session.name = 'anonymous' unless req.session.username
       room.save () ->
         res.render 'game',
           title: 'Room'
