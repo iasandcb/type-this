@@ -18,8 +18,8 @@ index = (app) ->
   app.get '/game/:id', (req, res) ->
     Room.getById req.params.id, (err, room) ->
       room.attendants = [] unless room.attendants
+      req.session.username = "anonymous#{room.attendants.length}" unless req.session.username
       room.attendants.push req.session.username unless req.session.username in room.attendants
-      req.session.name = 'anonymous' unless req.session.username
       room.save () ->
         res.render 'game',
           title: 'Room'
