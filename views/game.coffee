@@ -11,15 +11,25 @@ coffeescript ->
         roomId: roomId
         userName: userName
 
-#    game.on 'joined', (data) ->
-#      if data.isOK
+    game.on 'joined', (data) ->
+      if data.isOK
+        players = $('#players')
+        alreadyEnlisted = false
+        for player in players[0].childNodes
+          playerName = player.textContent
+          if playerName is data.userName
+            alreadyEnlisted = true
+            break
+
+        players.append $("<li>").attr("id", "player-" + data.userName).text(data.userName) unless alreadyEnlisted
+
 
     game.on 'message', (data) ->
-      attendants = $('#attendants')[0]
-      for attendant in attendants.childNodes
-        attendantName = attendant.textContent
-        if attendantName is data.userName
-          attendant.textContent = "#{attendantName} typed #{data.msg} in #{data.lapse} milliseconds"
+      players = $('#players')[0]
+      for player in players.childNodes
+        playerName = player.textContent
+        if playerName is data.userName
+          player.textContent = "#{playerName} typed #{data.msg} in #{data.lapse} milliseconds"
 
     game.on 'leaved', (data) ->
       alert(data.userName + ' leaved')
@@ -44,11 +54,11 @@ coffeescript ->
           msg: msg
           lapse: lapse
 
-        attendants = $('#attendants')[0]
-        for attendant in attendants.childNodes
-          attendantName = attendant.textContent
-          if attendantName is userName
-            attendant.textContent = "#{userName} typed #{msg} in #{lapse} milliseconds"
+        players = $('#players')[0]
+        for player in players.childNodes
+          playerName = player.textContent
+          if playerName is userName
+            player.textContent = "#{userName} typed #{msg} in #{lapse} milliseconds"
 
         started = false
 
@@ -70,10 +80,10 @@ p ->
 p ->
   span '#userName', -> @userName
 
-p 'Attendants'
+p 'players'
 
-ul '#attendants', ->
-  li attendant for attendant in @room.attendants
+ul '#players', ->
+  li player for player in @room.players
 
 form ->
   input '#message', type: 'text'
