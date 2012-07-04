@@ -20,8 +20,7 @@ coffeescript ->
         if playerName is data.userName
           #playScore = $('<span/>')
           #.attr('id', 'playerScore').text("#{data.userName} typed #{data.msg} in #{data.lapse} milliseconds")
-          alert player.id
-          $('#' + player.id).append "<span> typed #{data.msg} in #{data.lapse} milliseconds</span>"
+          $('#' + player.id).append "<br/><span> typed #{data.msg} in #{data.lapse} milliseconds</span>"
           break
 
     game.on 'joined', (data) ->
