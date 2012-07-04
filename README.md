@@ -107,6 +107,12 @@ Become a guest
 ##### Enlist players
 
 Host must start a game, then the room is closed.
+Display one player with
+	
+	player name
+	player score
+	
+spans. 
 
 ##### Type
 

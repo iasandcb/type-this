@@ -11,25 +11,35 @@ coffeescript ->
         roomId: roomId
         userName: userName
 
+    displayPlayerScore = (data) ->
+      players = $('#players')[0]
+      for player in players.childNodes
+        playerDetail = player.childNodes
+        playerName = playerDetail[0].textContent
+      #      playerName = player.textContent
+        if playerName is data.userName
+          #playScore = $('<span/>')
+          #.attr('id', 'playerScore').text("#{data.userName} typed #{data.msg} in #{data.lapse} milliseconds")
+          alert player.id
+          $('#' + player.id).append "<span> typed #{data.msg} in #{data.lapse} milliseconds</span>"
+          break
+
     game.on 'joined', (data) ->
       if data.isOK
         players = $('#players')
         alreadyEnlisted = false
         for player in players[0].childNodes
-          playerName = player.textContent
+          playerDetail = player.childNodes
+          playerName = playerDetail[0].textContent
           if playerName is data.userName
             alreadyEnlisted = true
             break
 
-        players.append $("<li>").attr("id", "player-" + data.userName).text(data.userName) unless alreadyEnlisted
+        players.append $("<li id='player-#{data.userName}'><span>#{data.userName}</span></li>") unless alreadyEnlisted
 
 
     game.on 'message', (data) ->
-      players = $('#players')[0]
-      for player in players.childNodes
-        playerName = player.textContent
-        if playerName is data.userName
-          player.textContent = "#{playerName} typed #{data.msg} in #{data.lapse} milliseconds"
+      displayPlayerScore(data)
 
     game.on 'leaved', (data) ->
       alert(data.userName + ' leaved')
@@ -49,17 +59,14 @@ coffeescript ->
       msg = messageBox.val()
       if $.trim(msg) isnt ''
         lapse = new Date().getTime() - startedTime.getTime()
-        game.json.send
+        data = {
           userName: userName
           msg: msg
           lapse: lapse
+        }
+        game.json.send data
 
-        players = $('#players')[0]
-        for player in players.childNodes
-          playerName = player.textContent
-          if playerName is userName
-            player.textContent = "#{userName} typed #{msg} in #{lapse} milliseconds"
-
+        displayPlayerScore(data)
         started = false
 
         messageBox.val ''
@@ -83,7 +90,9 @@ p ->
 p 'players'
 
 ul '#players', ->
-  li player for player in @room.players
+  for player in @room.players
+    li id: "player-#{player}", ->
+      span player
 
 form ->
   input '#message', type: 'text'
