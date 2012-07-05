@@ -3,21 +3,21 @@ coffeescript ->
   $(document).ready ->
     game = io.connect('/game')
     userName = $('#userName').text()
+    userId = $('#userId').text()
+    hostId = $('#hostId').text()
     roomId = $('#roomId').text()
     messageBox = $('#message')
 
     game.on 'connect', ->
       game.emit 'join',
         roomId: roomId
+        userId: userId
         userName: userName
 
     displayPlayerScore = (data) ->
       players = $('#players')[0]
       for player in players.childNodes
-        playerDetail = player.childNodes
-        playerName = playerDetail[0].textContent
-      #      playerName = player.textContent
-        if playerName is data.userName
+        if player.id is 'player-' + data.userId
           #playScore = $('<span/>')
           #.attr('id', 'playerScore').text("#{data.userName} typed #{data.msg} in #{data.lapse} milliseconds")
           $('#' + player.id).append "<br/><span> typed #{data.msg} in #{data.lapse} milliseconds</span>"
@@ -28,20 +28,18 @@ coffeescript ->
         players = $('#players')
         alreadyEnlisted = false
         for player in players[0].childNodes
-          playerDetail = player.childNodes
-          playerName = playerDetail[0].textContent
-          if playerName is data.userName
+          if player.id is 'player-' + data.userId
             alreadyEnlisted = true
             break
 
-        players.append $("<li id='player-#{data.userName}'><span>#{data.userName}</span></li>") unless alreadyEnlisted
+        players.append $("<li id='player-#{data.userId}'><span>#{data.userName}</span></li>") unless alreadyEnlisted
 
 
     game.on 'message', (data) ->
       displayPlayerScore(data)
 
     game.on 'leaved', (data) ->
-      alert(data.userName + ' leaved')
+      alert(data.userId + ' leaved')
 
     started = false
     startedTime = null
@@ -59,7 +57,7 @@ coffeescript ->
       if $.trim(msg) isnt ''
         lapse = new Date().getTime() - startedTime.getTime()
         data = {
-          userName: userName
+          userId: userId
           msg: msg
           lapse: lapse
         }
@@ -72,7 +70,7 @@ coffeescript ->
 
     $('#leave').click (e) ->
       game.emit 'leave',
-        userName: userName
+        userId: userId
 
       location.href = '/'
 
@@ -88,12 +86,26 @@ p ->
   span 'User name: '
   span '#userName', -> @userName
 
+  span
+    id: 'userId'
+    style: 'display:none;'
+    , -> @userId
+
+p ->
+  span 'Host name: '
+  span  '#hostName', -> @room.host.name
+
+  span
+    id: 'hostId'
+    style: 'display:none;'
+    , -> @room.host.id
+
 p 'players'
 
 ul '#players', ->
   for player in @room.players
-    li id: "player-#{player}", ->
-      span player
+    li id: "player-#{player.id}", ->
+      span player.name
 
 form ->
   input '#message', type: 'text'

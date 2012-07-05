@@ -17,6 +17,7 @@ coffeescript ->
               type: 'POST'
               data:
                 username: me.name
+                userid: me.id
               dataType: 'html'
               error: (jqXHR, textStatus, errorThrown) ->
                 $('body').append "AJAX Error: #{textStatus}"

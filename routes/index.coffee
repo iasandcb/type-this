@@ -1,5 +1,6 @@
 
 Room = require '../models/room'
+Player = require '../models/player'
 
 index = (app) ->
   app.get '/', (req, res) ->
@@ -15,10 +16,14 @@ index = (app) ->
     unless req.session.username
       res.redirect '/auth'
       return
+    host = new Player
+      name: req.session.username
+      id: req.session.userid
+
     attributes =
       name: req.body.name
-      host: req.session.username
-      players: [req.session.username]
+      host: host
+      players: [host]
     room = new Room attributes
     room.save () ->
       res.redirect "/game/#{room.id}"
@@ -30,13 +35,25 @@ index = (app) ->
     Room.getById req.params.id, (err, room) ->
 #      room.players = [] unless room.players
 #      req.session.username = "anonymous#{room.players.length}" unless req.session.username
-      room.players.push req.session.username unless req.session.username in room.players
-      console.log room.players
+      alreadyJoined = false
+
+      for player in room.players
+        if player.id is req.session.userid
+          alreadyJoined = true
+          break
+
+      unless alreadyJoined
+        guest = new Player
+          name: req.session.username
+          id: req.session.userid
+        room.players.push guest
+
       room.save () ->
         res.render 'game',
           title: 'Game'
           room: room
           userName: req.session.username
+          userId: req.session.userid
 
   app.get '/auth', (req, res) ->
     res.render 'auth',
@@ -44,6 +61,11 @@ index = (app) ->
 
   app.post '/auth', (req, res) ->
     req.session.username = req.body.username
+    req.session.userid = req.body.userid
     res.send 'ok'
+
+  app.get '/backbone', (req, res) ->
+    res.render 'backbone',
+      title: 'Backbone'
 
 module.exports = index

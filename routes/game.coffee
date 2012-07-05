@@ -15,11 +15,11 @@ game = (app) ->
           socket.join joinedRoom.id
           socket.emit 'joined',
             isOK: true
-            userName: data.userName
+            userId: data.userId
 
           socket.broadcast.to(joinedRoom.id).emit 'joined',
             isOK: true
-            userName:data.userName
+            userId:data.userId
 
     socket.on 'message', (data) ->
       if joinedRoom
@@ -29,7 +29,7 @@ game = (app) ->
       if joinedRoom
 #        Room.leaveRoom(joinedRoom, data.nickName)
         socket.broadcast.to(joinedRoom.id).emit 'leaved',
-            userName:data.userName
+            userId:data.userId
 
         socket.leave joinedRoom.id
 
