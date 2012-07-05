@@ -81,9 +81,11 @@ h1 @title
 p id: 'facebook-name'
 
 p ->
+  span 'Room name: '
   span '#roomId', -> @room.id
 
 p ->
+  span 'User name: '
   span '#userName', -> @userName
 
 p 'players'
@@ -95,7 +97,3 @@ ul '#players', ->
 
 form ->
   input '#message', type: 'text'
-
-p 'Message', ->
-  span id: 'hostMessage'
-  span id: 'lapse'

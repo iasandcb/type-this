@@ -11,7 +11,7 @@ coffeescript ->
       if response.authResponse
         FB.api "/me", (me) ->
           if me.name
-            alert(me.id);
+            # alert(me.id);
             document.getElementById("auth-displayname").innerHTML = me.name
             $.ajax '/auth',
               type: 'POST'
@@ -21,8 +21,9 @@ coffeescript ->
               error: (jqXHR, textStatus, errorThrown) ->
                 $('body').append "AJAX Error: #{textStatus}"
               success: (data, textStatus, jqXHR) ->
-                alert 'ok'
-                $('body').append "Successful AJAX call: #{data}"
+                # alert 'ok'
+                window.location = '/'
+                # $('body').append "Successful AJAX call: #{data}"
 
         document.getElementById("auth-loggedout").style.display = "none"
         document.getElementById("auth-loggedin").style.display = "block"

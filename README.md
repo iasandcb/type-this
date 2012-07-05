@@ -122,8 +122,7 @@ Guests type the word, which is also broadcast.
 
 ##### Result
 
-Once every player finish typing, judgement is made.
+Once each player finishes typing, judgement is made.
 
-Now the winner has the right to manage the game, which means he or she can finish the game.
-
-The winner starts typing a word, and so on.
+If a guest typed before host, the guest lost.
+If a guest typed faster than host, the guest won.
