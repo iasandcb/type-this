@@ -125,4 +125,4 @@ Guests type the word, which is also broadcast.
 Once each player finishes typing, judgement is made.
 
 If a guest typed before host, the guest lost.
-If a guest typed faster than host, the guest won.
+If a guest typed faster than host, the guest won. Otherwise, the guest lost.

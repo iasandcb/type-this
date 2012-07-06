@@ -7,6 +7,8 @@ coffeescript ->
     hostId = $('#hostId').text()
     roomId = $('#roomId').text()
     messageBox = $('#message')
+    hostLapse = null
+    hostText = null
 
     game.on 'connect', ->
       game.emit 'join',
@@ -15,12 +17,25 @@ coffeescript ->
         userName: userName
 
     displayPlayerScore = (data) ->
+      result = 'lost'
+      if data.userId is hostId
+        hostLapse = data.lapse
+        hostText = data.msg
+        result = ''
+      else
+        if hostText
+          if hostText is data.msg
+            if hostLapse > data.lapse
+              result = 'won'
+
+          hostText = null
+
       players = $('#players')[0]
       for player in players.childNodes
         if player.id is 'player-' + data.userId
           #playScore = $('<span/>')
           #.attr('id', 'playerScore').text("#{data.userName} typed #{data.msg} in #{data.lapse} milliseconds")
-          $('#' + player.id).append "<br/><span> typed #{data.msg} in #{data.lapse} milliseconds</span>"
+          $('#' + player.id).append "<br/><span> typed #{data.msg} in #{data.lapse} milliseconds. #{result}</span>"
           break
 
     game.on 'joined', (data) ->
