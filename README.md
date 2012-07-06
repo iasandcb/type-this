@@ -1,5 +1,6 @@
 # Type This
 
+Now this web application is live on http://iasandcb.pe.kr:3000
 ## How to run
 
 ### Step 1: Node.js + Express
