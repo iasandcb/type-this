@@ -9,7 +9,7 @@ index = (app) ->
       return
     Room.all (err, rooms) ->
       res.render 'index',
-        title: 'Rooms'
+        title: 'Lobby'
         rooms: rooms
 
   app.post '/', (req, res) ->

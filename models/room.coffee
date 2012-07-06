@@ -29,6 +29,10 @@ class Room
     redis.hset Room.key(), @id, JSON.stringify(@), (err, responseCode) =>
       callback null, @
 
+  destroy: (callback) ->
+    redis.hdel Room.key(), @id, (err) ->
+      callback err if callback
+
   @getById: (id, callback) ->
     redis.hget Room.key(), id, (err, json) ->
       if json is null

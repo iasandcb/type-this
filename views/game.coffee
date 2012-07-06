@@ -49,17 +49,19 @@ coffeescript ->
 
         players.append $("<li id='player-#{data.userId}'><span>#{data.userName}</span></li>") unless alreadyEnlisted
 
-
     game.on 'message', (data) ->
       displayPlayerScore(data)
 
-    game.on 'leaved', (data) ->
-      alert(data.userId + ' leaved')
+    game.on 'left', (data) ->
+      $('#player-' + data.userId).remove()
+      if data.userId is hostId
+        messageBox.attr('disabled', true)
+        alert 'Host left, so this rooom is shut down. Please leave here.'
 
     started = false
     startedTime = null
 
-    $('#message').keypress ->
+    messageBox.keypress ->
       if started
         return
       else
@@ -96,6 +98,8 @@ p id: 'facebook-name'
 p ->
   span 'Room name: '
   span '#roomId', -> @room.id
+
+button id: 'leave', 'Leave'
 
 p ->
   span 'User name: '

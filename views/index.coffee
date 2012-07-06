@@ -18,9 +18,8 @@ h1 @title
 
 p id: 'facebook-name'
 
-p 'Create a room'
 form action: '/', method: 'POST', ->
-  label for: 'name', 'Room name'
+  label for: 'name', 'Create a room'
   input type: 'text', id: 'name', name: 'name'
   input type: 'hidden', id: 'host', name: 'host'
   input type: 'submit', value: 'Submit'
@@ -28,5 +27,5 @@ form action: '/', method: 'POST', ->
 ul ->
   for room in @rooms
     li ->
-      p room.name
-      input type:'button', value: 'Join', onclick: "location.href='/game/#{room.id}'"
+      span room.name
+      button onclick: "location.href='/game/#{room.id}'", 'Join'

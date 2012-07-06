@@ -16,10 +16,12 @@ game = (app) ->
           socket.emit 'joined',
             isOK: true
             userId: data.userId
+            userName: data.userName
 
           socket.broadcast.to(joinedRoom.id).emit 'joined',
             isOK: true
             userId:data.userId
+            userName: data.userName
 
     socket.on 'message', (data) ->
       if joinedRoom
@@ -28,9 +30,11 @@ game = (app) ->
     socket.on 'leave', (data) ->
       if joinedRoom
 #        Room.leaveRoom(joinedRoom, data.nickName)
-        socket.broadcast.to(joinedRoom.id).emit 'leaved',
+        socket.broadcast.to(joinedRoom.id).emit 'left',
             userId:data.userId
 
         socket.leave joinedRoom.id
+        joinedRoom.destroy() if data.userId is joinedRoom.host.id
+
 
 module.exports = game
