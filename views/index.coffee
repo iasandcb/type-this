@@ -1,22 +1,7 @@
 
-coffeescript ->
-  window.fbAsyncInit = ->
-    FB.init
-      appId: "350109445062579"
-      channelUrl: "//" + window.location.host + "/channel.txt"
-      status: true
-      cookie: true
-      xfbml: true
-
-    FB.Event.subscribe "auth.statusChange", (response) ->
-      if response.authResponse
-        FB.api "/me", (me) ->
-          document.getElementById("facebook-name").innerHTML = me.name
-          document.getElementById('host').value = me.name
-
 h1 @title
 
-p id: 'facebook-name'
+p -> a href: '/auth', -> 'Facebook authentication'
 
 form action: '/', method: 'POST', ->
   label for: 'name', 'Create a room'

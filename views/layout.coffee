@@ -6,8 +6,8 @@ html ->
     title "#{@title} | Type This" if @title?
     script src: '/javascripts/jquery-1.7.2.min.js'
     script src: '/socket.io/socket.io.js'
-    script src: '/javascripts/underscore-min.js'
-    script src: '/javascripts/backbone-min.js'
-    script src: '//connect.facebook.net/en_US/all.js'
+#    script src: '/javascripts/underscore-min.js'
+#    script src: '/javascripts/backbone-min.js'
+#    script src: '//connect.facebook.net/en_US/all.js'
   body ->
     @body

@@ -1,4 +1,16 @@
 coffeescript ->
+  ((d) ->
+    js = undefined
+    id = "facebook-jssdk"
+    ref = d.getElementsByTagName("script")[0]
+    return  if d.getElementById(id)
+    js = d.createElement("script")
+    js.id = id
+    js.async = true
+    js.src = "//connect.facebook.net/en_US/all.js"
+    ref.parentNode.insertBefore js, ref
+  ) document
+
   window.fbAsyncInit = ->
     FB.init
       appId: "350109445062579"
@@ -23,7 +35,7 @@ coffeescript ->
                 $('body').append "AJAX Error: #{textStatus}"
               success: (data, textStatus, jqXHR) ->
                 # alert 'ok'
-                window.location = '/'
+                # window.location = '/'
                 # $('body').append "Successful AJAX call: #{data}"
 
         document.getElementById("auth-loggedout").style.display = "none"
@@ -46,4 +58,5 @@ div '#auth-status', ->
 
   div '#auth-loggedin', style: 'display:none', ->
     span id: 'auth-displayname'
+    p -> a href: '/', -> 'Go to Lobby'
     p -> a '#auth-logoutlink', href: '#', -> 'Logout'
